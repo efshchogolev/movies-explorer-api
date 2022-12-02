@@ -3,7 +3,6 @@ const { URL_REG_EXP } = require('../constants');
 
 module.exports.validateMovie = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30),
     country: Joi.string().required(),
     director: Joi.string().required(),
     dureation: Joi.number().required(),
