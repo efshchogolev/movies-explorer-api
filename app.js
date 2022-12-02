@@ -24,6 +24,15 @@ mongoose.connect(MONGO_URL, { autoIndex: true });
 //     throw new Error('Сервер сейчас упадёт');
 //   }, 0);
 // });
+// временная авторизация///////////////////////////////////////////////
+app.use((req, res, next) => {
+  req.user = {
+    _id: '6389ea5de4c4253be96411f9',
+  };
+
+  next();
+});
+// временная авторизация///////////////////////////////////////////////
 app.use(routes);
 
 // app.use(errorLogger);

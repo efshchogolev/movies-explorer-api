@@ -6,7 +6,7 @@ const DataError = require('../utils/errors/dataError');
 
 module.exports.getMovies = (req, res, next) => {
   Movie.find({})
-    .then((cards) => res.send(cards))
+    .then((movies) => res.send(movies))
     .catch((err) => next(err));
 };
 
@@ -22,7 +22,6 @@ module.exports.createMovie = (req, res, next) => {
     nameRU,
     nameEN,
     thumbnail,
-    movieId,
   } = req.body;
 
   Movie.create({
@@ -36,7 +35,6 @@ module.exports.createMovie = (req, res, next) => {
     nameRU,
     nameEN,
     thumbnail,
-    movieId,
   })
     .then((movie) => res.send(movie))
     .catch((err) => {
