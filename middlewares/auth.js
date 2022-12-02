@@ -7,7 +7,7 @@ const AuthorizationError = require('../utils/errors/authError');
 module.exports.tokenAuth = (req, res, next) => {
   const token = req.cookies.jwt;
 
-  // const { NODE_ENV, JWT_SECRET } = process.env;
+  const { NODE_ENV, JWT_SECRET } = process.env;
 
   if (!token) {
     return next(new AuthorizationError('Необходима авторизация'));
@@ -16,7 +16,7 @@ module.exports.tokenAuth = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, 'some-secret-key');
+    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
     if (!payload) {
       return next(new AuthorizationError('Необходимы права доступа'));
     }
