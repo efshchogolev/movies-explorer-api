@@ -6,7 +6,6 @@ const User = require('../models/user');
 const {
   MONGO_DB_CODE,
 } = require('../utils/constants');
-// const NotFoundError = require('../utils/errors/notFoundError');
 const DataError = require('../utils/errors/dataError');
 const ConflictError = require('../utils/errors/conflictError');
 

@@ -1,9 +1,7 @@
-// middlewares/auth.js
 const jwt = require('jsonwebtoken');
 
 const AuthorizationError = require('../utils/errors/authError');
 
-// eslint-disable-next-line consistent-return
 module.exports.tokenAuth = (req, res, next) => {
   const token = req.cookies.jwt;
 

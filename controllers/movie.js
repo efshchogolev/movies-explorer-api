@@ -2,7 +2,6 @@ const Movie = require('../models/movie');
 
 const NotFoundError = require('../utils/errors/notFoundError');
 const DataError = require('../utils/errors/dataError');
-// const ForbiddenError = require('../utils/errors/forbiddenError');
 
 module.exports.getMovies = (req, res, next) => {
   Movie.find({})

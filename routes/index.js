@@ -3,12 +3,11 @@ const userRouter = require('./userRoutes');
 const movieRouter = require('./movieRoutes');
 const { tokenAuth } = require('../middlewares/auth');
 const NotFoundError = require('../utils/errors/notFoundError');
-// const { NOT_FOUND_ERROR_CODE } = require('../utils/constants');
 const { login, createUser } = require('../controllers/user');
-// const { validateLogin, validateRegistration } = require('../utils/validators/userValidator');
+const { validateLogin, validateRegistration } = require('../utils/validators/userValidator');
 
-router.post('/signin', login);
-router.post('/signup', createUser);
+router.post('/signin', validateLogin, login);
+router.post('/signup', validateRegistration, createUser);
 router.get('/signout', (req, res) => {
   res.clearCookie('jwt').send({ message: 'Выход' });
 });
