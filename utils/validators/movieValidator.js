@@ -13,11 +13,12 @@ module.exports.validateMovie = celebrate({
     thumbnail: Joi.string().required().pattern(URL_REG_EXP),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
+    movieId: Joi.number().required(),
   }),
 });
 
 module.exports.validateMovieId = celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().hex().required().length(24),
+    movieId: Joi.number().required(),
   }),
 });
