@@ -3,14 +3,12 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
-// const cors = require('./middlewares/cors');
 const routes = require('./routes');
 const errorsHandler = require('./middlewares/errorsHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { MONGO_URL_CONFIG, PORT_CONFIG } = require('./utils/config');
 
 const app = express();
-// app.use(cors);
 app.use(bodyParser.json());
 app.use(cookieParser());
 
