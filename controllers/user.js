@@ -5,6 +5,9 @@ const User = require('../models/user');
 
 const {
   MONGO_DB_CODE,
+  CONFLICT_ERROR_TEXT,
+  DATA_ERROR_TEXT,
+  AUTHORIZATION_SUCCESS,
 } = require('../utils/constants');
 const DataError = require('../utils/errors/dataError');
 const ConflictError = require('../utils/errors/conflictError');
@@ -26,9 +29,9 @@ module.exports.updateUserInfo = (req, res, next) => {
     .then((user) => res.status(200).send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new DataError('Ошибка валидации'));
+        next(new DataError(DATA_ERROR_TEXT));
       } else if (err.code === MONGO_DB_CODE || User.findOne({ email })) {
-        next(new ConflictError('Такой пользователь уже зарегестрирован'));
+        next(new ConflictError(CONFLICT_ERROR_TEXT));
       } else {
         next(err);
       }
@@ -49,9 +52,9 @@ module.exports.createUser = (req, res, next) => {
     }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new DataError('Ошибка валидации'));
+        next(new DataError(DATA_ERROR_TEXT));
       } else if (err.code === MONGO_DB_CODE) {
-        next(new ConflictError('Такой пользователь уже зарегестрирован'));
+        next(new ConflictError(CONFLICT_ERROR_TEXT));
       } else {
         next(err);
       }
@@ -68,7 +71,7 @@ module.exports.login = (req, res, next) => {
     });
   })
     .then(() => {
-      res.send({ messgae: 'Авторизация успешна' });
+      res.send({ messgae: AUTHORIZATION_SUCCESS });
     })
     .catch((err) => next(err));
 };
