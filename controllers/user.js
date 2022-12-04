@@ -30,7 +30,7 @@ module.exports.updateUserInfo = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new DataError(DATA_ERROR_TEXT));
-      } else if (err.code === MONGO_DB_CODE || User.findOne({ email })) {
+      } else if (err.code === MONGO_DB_CODE) {
         next(new ConflictError(CONFLICT_ERROR_TEXT));
       } else {
         next(err);
