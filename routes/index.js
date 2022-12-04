@@ -9,13 +9,16 @@ const { NOT_FOUND_ERROR_TEXT, SIGNOUT_TEXT } = require('../utils/constants');
 
 router.post('/signin', validateLogin, login);
 router.post('/signup', validateRegistration, createUser);
-router.get('/signout', tokenAuth, (req, res) => {
+
+router.use(tokenAuth);
+
+router.get('/signout', (req, res) => {
   res.clearCookie('jwt').send({ message: SIGNOUT_TEXT });
 });
 
-router.use('/users', tokenAuth, userRouter);
-router.use('/movies', tokenAuth, movieRouter);
-router.use('*', tokenAuth, (req, res, next) => {
+router.use('/users', userRouter);
+router.use('/movies', movieRouter);
+router.use('*', (req, res, next) => {
   next(new NotFoundError(NOT_FOUND_ERROR_TEXT));
 });
 
