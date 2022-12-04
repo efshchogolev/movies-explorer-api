@@ -5,7 +5,6 @@ const AUTHORIZATION_ERROR_CODE = 401;
 const MONGO_DB_CODE = 11000;
 const FORBIDDEN_ERROR_CODE = 403;
 const CONFLICT_ERROR_CODE = 409;
-const URL_REG_EXP = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
 const CONFLICT_ERROR_TEXT = 'Такой пользователь уже зарегестрирован';
 const DATA_ERROR_TEXT = 'Ошибка валидации';
 const AUTHORIZATION_SUCCESS = 'Авторизация успешна';
@@ -17,6 +16,9 @@ const DEFAULT_ERROR_TEXT = 'На сервере произошла ошибка'
 const AUTHORIZATION_ERROR_TEXT = 'Неправильные почта или пароль';
 const NOT_FOUND_ERROR_TEXT = 'Неверный адрес';
 const SIGNOUT_TEXT = 'Выход';
+const IMG_ERROR_TEXT = 'Неверная ссылка на изображение';
+const TRAILER_ERROR_TEXT = 'Неверная ссылка на трейлер';
+const THUMBNAIL_ERROR_TEXT = 'Неверная ссылка на постер';
 
 module.exports = {
   DATA_ERROR_CODE,
@@ -28,7 +30,6 @@ module.exports = {
   AUTHORIZATION_ERROR_CODE,
   CONFLICT_ERROR_CODE,
   CONFLICT_ERROR_TEXT,
-  URL_REG_EXP,
   AUTHORIZATION_SUCCESS,
   FORBIDDEN_ERROR_TEXT,
   FILM_NOT_FOUND_ERROR_TEXT,
@@ -38,4 +39,7 @@ module.exports = {
   AUTHORIZATION_ERROR_TEXT,
   NOT_FOUND_ERROR_TEXT,
   SIGNOUT_TEXT,
+  IMG_ERROR_TEXT,
+  TRAILER_ERROR_TEXT,
+  THUMBNAIL_ERROR_TEXT,
 };

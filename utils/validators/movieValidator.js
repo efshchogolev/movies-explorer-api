@@ -1,5 +1,6 @@
 const { celebrate, Joi } = require('celebrate');
-const { URL_REG_EXP } = require('../constants');
+const validator = require('validator');
+const { IMG_ERROR_TEXT, TRAILER_ERROR_TEXT, THUMBNAIL_ERROR_TEXT } = require('../constants');
 
 module.exports.validateMovie = celebrate({
   body: Joi.object().keys({
@@ -8,9 +9,24 @@ module.exports.validateMovie = celebrate({
     duration: Joi.number().required(),
     year: Joi.string().required(),
     description: Joi.string().required(),
-    image: Joi.string().required().pattern(URL_REG_EXP),
-    trailerLink: Joi.string().required().pattern(URL_REG_EXP),
-    thumbnail: Joi.string().required().pattern(URL_REG_EXP),
+    image: Joi.string().required().custom((value, helpers) => {
+      if (validator.isURL(value)) {
+        return value;
+      }
+      return helpers.message(IMG_ERROR_TEXT);
+    }),
+    trailerLink: Joi.string().required().custom((value, helpers) => {
+      if (validator.isURL(value)) {
+        return value;
+      }
+      return helpers.message(TRAILER_ERROR_TEXT);
+    }),
+    thumbnail: Joi.string().required().custom((value, helpers) => {
+      if (validator.isURL(value)) {
+        return value;
+      }
+      return helpers.message(THUMBNAIL_ERROR_TEXT);
+    }),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
     movieId: Joi.number().required(),
