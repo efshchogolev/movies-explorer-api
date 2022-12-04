@@ -27,6 +27,8 @@ module.exports.updateUserInfo = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new DataError('Ошибка валидации'));
+      } else if (err.code === MONGO_DB_CODE || User.findOne({ email })) {
+        next(new ConflictError('Такой пользователь уже зарегестрирован'));
       } else {
         next(err);
       }
