@@ -2,6 +2,7 @@
 const allowedCors = [
   'http://localhost:3001',
   'http://localhost:3000',
+  'https://mexplorersh.nomoredomains.work',
 ];
 
 // eslint-disable-next-line consistent-return
