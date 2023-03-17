@@ -59,10 +59,17 @@ module.exports.deleteMovie = (req, res, next) => {
   Movie.findOne({ movieId: req.params.movieId })
     .orFail(new NotFoundError(FILM_NOT_FOUND_ERROR_TEXT))
     .then((movie) => {
-      if (!movie.owner.equals(req.user._id)) {
-        return next(new ForbiddenError(FORBIDDEN_ERROR_TEXT));
+      if (movie.owner.equals(req.user._id)) {
+        return Movie.findOneAndDelete({ movieId: req.params.movieId })
+          .then(() => res.send({ message: FILM_DELETE_TEXT }))
+          .catch(next);
       }
-      return movie.remove().then(() => res.send({ message: FILM_DELETE_TEXT }));
+      return next(new ForbiddenError(FORBIDDEN_ERROR_TEXT));
+      // if (!movie.owner.equals(req.user._id)) {
+      //   return next(new ForbiddenError(FORBIDDEN_ERROR_TEXT));
+      // }
+      // return movie.remove().then(() => res.send({ message: FILM_DELETE_TEXT }));
     })
+
     .catch((err) => next(err));
 };
