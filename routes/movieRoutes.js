@@ -8,6 +8,6 @@ const { validateMovie, validateMovieId } = require('../utils/validators/movieVal
 
 cardRouter.get('/', getMovies);
 cardRouter.post('/', validateMovie, createMovie);
-cardRouter.delete('/:movieId', validateMovieId, deleteMovie);
+cardRouter.delete('/:id', validateMovieId, deleteMovie);
 
 module.exports = cardRouter;
