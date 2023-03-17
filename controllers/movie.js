@@ -56,20 +56,20 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-  Movie.findOne({ movieId: req.params.movieId })
+  Movie.findById(req.params.movieId)
     .orFail(new NotFoundError(FILM_NOT_FOUND_ERROR_TEXT))
     .then((movie) => {
-      res.send({ owner: movie.owner.toString(), movie: req.user._id });
-      if (movie.owner.toString() === req.user._id) {
-        return movie.remove()
-          .then(() => res.send({ message: FILM_DELETE_TEXT }))
-          .catch(next);
-      }
-      return next(new ForbiddenError(FORBIDDEN_ERROR_TEXT));
-      // if (!movie.owner.equals(req.user._id)) {
-      //   return next(new ForbiddenError(FORBIDDEN_ERROR_TEXT));
+      // // res.send({ owner: movie.owner.toString(), movie: req.user._id });
+      // if (movie.owner.toString() === req.user._id) {
+      //   return movie.remove()
+      //     .then(() => res.send({ message: FILM_DELETE_TEXT }))
+      //     .catch(next);
       // }
-      // return movie.remove().then(() => res.send({ message: FILM_DELETE_TEXT }));
+      // return next(new ForbiddenError(FORBIDDEN_ERROR_TEXT));
+      if (movie.owner.toHexString() !== req.user._id) {
+        return next(new ForbiddenError(FORBIDDEN_ERROR_TEXT));
+      }
+      return movie.remove().then(() => res.send({ message: FILM_DELETE_TEXT }));
     })
 
     .catch((err) => next(err));
