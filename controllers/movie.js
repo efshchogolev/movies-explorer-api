@@ -59,11 +59,7 @@ module.exports.deleteMovie = (req, res, next) => {
   Movie.findById(req.params.id)
     .orFail(new NotFoundError(FILM_NOT_FOUND_ERROR_TEXT))
     .then((movie) => {
-      res.send({ message: req.user._id, card: movie.owner });
-      return movie;
-    })
-    .then((movie) => {
-      if (movie.owner.toHexString() !== req.user.id) {
+      if (movie.owner !== req.user.id) {
         return next(new ForbiddenError(FORBIDDEN_ERROR_TEXT));
       }
       return movie.remove().then(() => res.send({ message: FILM_DELETE_TEXT }));
