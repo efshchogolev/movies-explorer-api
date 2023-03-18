@@ -58,13 +58,12 @@ module.exports.createMovie = (req, res, next) => {
 module.exports.deleteMovie = (req, res, next) => {
   Movie.findById(req.params.id)
     .orFail(new NotFoundError(FILM_NOT_FOUND_ERROR_TEXT))
-    // .then((movie) => {
-    //   const equal = movie.owner.toHexString() === req.user.id.toHexString();
-    //   res.send({ equal });
-    //   return movie;
-    // })
     .then((movie) => {
-      if (!movie.owner.toHexString().equals(req.user.id)) {
+      res.send({ message: req.user._id, card: movie.owner.toHexString });
+      return movie;
+    })
+    .then((movie) => {
+      if (movie.owner.toHexString() !== req.user.id) {
         return next(new ForbiddenError(FORBIDDEN_ERROR_TEXT));
       }
       return movie.remove().then(() => res.send({ message: FILM_DELETE_TEXT }));
