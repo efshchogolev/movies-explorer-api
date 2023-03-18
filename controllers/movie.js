@@ -64,7 +64,7 @@ module.exports.deleteMovie = (req, res, next) => {
     //   return movie;
     // })
     .then((movie) => {
-      if (!movie.owner.equals(req.user.id)) {
+      if (!movie.owner.toHexString().equals(req.user.id)) {
         return next(new ForbiddenError(FORBIDDEN_ERROR_TEXT));
       }
       return movie.remove().then(() => res.send({ message: FILM_DELETE_TEXT }));
