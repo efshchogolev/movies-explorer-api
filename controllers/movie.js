@@ -59,7 +59,7 @@ module.exports.deleteMovie = (req, res, next) => {
   Movie.findById(req.params.id)
     .orFail(new NotFoundError(FILM_NOT_FOUND_ERROR_TEXT))
     .then((movie) => {
-      res.send({ message: req.user._id });
+      res.send({ message: req.user._id, card: movie.owner.toHexString() });
       return movie;
     })
     .then((movie) => {
