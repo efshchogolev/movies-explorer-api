@@ -59,7 +59,7 @@ module.exports.deleteMovie = (req, res, next) => {
   Movie.findById(req.params.id)
     .orFail(new NotFoundError(FILM_NOT_FOUND_ERROR_TEXT))
     .then(() => {
-      res.send({ request: req });
+      res.send({ message: req });
     })
     .then((movie) => {
       res.send({ user: req.user.id });
